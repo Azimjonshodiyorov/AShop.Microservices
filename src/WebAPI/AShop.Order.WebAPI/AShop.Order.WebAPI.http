@@ -1,0 +1,6 @@
+@AShop.Order.WebAPI_HostAddress = http://localhost:5032
+
+GET {{AShop.Order.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
