@@ -1,6 +1,0 @@
-@AShop.Common.Core_HostAddress = http://localhost:5022
-
-GET {{AShop.Common.Core_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
