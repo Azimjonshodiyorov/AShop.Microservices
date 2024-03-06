@@ -20,6 +20,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Application\AShop.Catalog.Application\AShop.Catalog.Application.csproj" />
+      <ProjectReference Include="..\..\Commons\AShop.Common.Logging\AShop.Common.Logging.csproj" />
     </ItemGroup>
 
 </Project>
