@@ -7,4 +7,15 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="Grpc.AspNetCore" Version="2.61.0" />
+      <PackageReference Include="MediatR" Version="12.2.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Domain\AShop.Basket.Domain\AShop.Basket.Domain.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\AShop.Basket.Infrastructure\AShop.Basket.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
