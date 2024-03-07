@@ -14,6 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Commons\AShop.EventBus.Message\AShop.EventBus.Message.csproj" />
       <ProjectReference Include="..\..\Domain\AShop.Basket.Domain\AShop.Basket.Domain.csproj" />
       <ProjectReference Include="..\..\Infrastructure\AShop.Basket.Infrastructure\AShop.Basket.Infrastructure.csproj" />
     </ItemGroup>
