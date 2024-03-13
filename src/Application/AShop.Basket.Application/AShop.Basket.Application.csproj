@@ -19,4 +19,10 @@
       <ProjectReference Include="..\..\Infrastructure\AShop.Basket.Infrastructure\AShop.Basket.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <Protobuf Include="..\..\Application\AShop.Discount.Application\Protos\discount.proto" GrpcServices="Client">
+            <Link>Protos\discount.proto</Link>
+        </Protobuf>
+    </ItemGroup>
+
 </Project>

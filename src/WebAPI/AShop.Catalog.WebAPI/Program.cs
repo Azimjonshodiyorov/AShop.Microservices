@@ -1,20 +1,21 @@
 using AShop.Catalog.WebAPI;
+using AShop.Common.Logging;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddApiVersioning();
-builder.Services.AddHealthChecks()
-    .AddMongoDb(builder.Configuration["DatabaseSettings:ConnectionString"], "Catalog  Mongo Db Health Check",
-        HealthStatus.Degraded);
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Catalog.API", Version = "v1"}); });
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddControllers();
+builder.Services.AddVersionedApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+builder.Services.AddApiVersioning();
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 var app = builder.Build();
 
 
@@ -22,13 +23,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();  
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
 }
+
 app.UseHttpsRedirection();
 app.UseRouting();
+// app.UseCors("CorsPolicy");
 app.UseAuthentication();
 app.UseStaticFiles();
-
+app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
