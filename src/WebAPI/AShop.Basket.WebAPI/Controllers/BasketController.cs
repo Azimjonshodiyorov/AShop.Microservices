@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using AShop.Basket.Application.Commands;
 using AShop.Basket.Application.Queries;
 using AShop.Basket.Application.Responses;
 using AShop.Common.Logging.Correlation;
@@ -33,4 +34,26 @@ public class BasketController : ApiController
         var basket = await this._mediator.Send(query);
         return Ok(basket);
     }
+
+
+    [HttpPost("CreateBasket")]
+    [ProducesResponseType(typeof(ShoppingCartResponse) , (int)HttpStatusCode.OK)]
+    public async Task<ActionResult<ShoppingCartResponse>> CreateBasket(
+        [FromBody] CreateShoppingCartCommand shoppingCartCommand)
+    {
+        var basket = await this._mediator.Send(shoppingCartCommand);
+        return Ok(basket);
+    }
+
+    [HttpDelete]
+    [Route("[action]/{userName}" , Name = "DeleteBasketByUserName")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    public async Task<ActionResult<ShoppingCartResponse>> DeleteBasket(string userName)
+    {
+        var query = new DeleteBasketByUserNameQuery(userName);
+        var result = await this._mediator.Send(query);
+        return Ok(result);
+    }
+    
+    
 }
