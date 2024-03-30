@@ -1,8 +1,11 @@
 ﻿using System.Net;
 using AShop.Basket.Application.Commands;
+using AShop.Basket.Application.Mappers;
 using AShop.Basket.Application.Queries;
 using AShop.Basket.Application.Responses;
+using AShop.Basket.Domain.Entities;
 using AShop.Common.Logging.Correlation;
+using AShop.EventBus.Message.Events;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +57,26 @@ public class BasketController : ApiController
         var result = await this._mediator.Send(query);
         return Ok(result);
     }
-    
-    
+
+    [HttpPost]
+    [Route("[action]")]
+    [ProducesResponseType((int)HttpStatusCode.Accepted)]
+    [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> Chekout([FromBody] BasketCheckout checkout)
+    {
+        var query = new GetBasketByUserNameQuery(checkout.UserName);
+        var basket = await this._mediator.Send(query);
+
+        if (basket is null)
+            return BadRequest();
+        var eventMess = BasketMapper.Mapper.Map<BasketCheckoutEvent>(checkout);
+        eventMess.TotalPrice = checkout.TotalPrice;
+        eventMess.CorrelationId = this._correlationIdGenerator.Get();
+
+        await this._endpoint.Publish(eventMess);
+        var deleteQuery = new DeleteBasketByUserNameQuery(checkout.UserName);
+        await this._mediator.Send(deleteQuery);
+
+        return Accepted();
+    }
 }
