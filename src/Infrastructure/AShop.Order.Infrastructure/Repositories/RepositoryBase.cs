@@ -1,5 +1,5 @@
 ﻿namespace AShop.Order.Infrastructure;
 
-public class Class1
+public class RepositoryBase
 {
 }
