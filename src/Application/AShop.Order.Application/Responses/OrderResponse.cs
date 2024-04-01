@@ -1,8 +1,6 @@
-﻿using MediatR;
+﻿namespace AShop.Order.Application.Responses;
 
-namespace AShop.Order.Application.Commands;
-
-public class UpdateOrderCommand : IRequest
+public class OrderResponse
 {
     public long Id { get; set; }
     public string? UserName { get; set; }

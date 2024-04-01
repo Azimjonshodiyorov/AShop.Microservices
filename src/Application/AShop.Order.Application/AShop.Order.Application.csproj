@@ -17,16 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Commons\AShop.EventBus.Message\AShop.EventBus.Message.csproj" />
       <ProjectReference Include="..\..\Infrastructure\AShop.Order.Infrastructure\AShop.Order.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Extensions\" />
-      <Folder Include="Handlers\" />
-      <Folder Include="Mappers\" />
-      <Folder Include="Queries\" />
-      <Folder Include="Responses\" />
-      <Folder Include="Validators\" />
     </ItemGroup>
 
 </Project>
